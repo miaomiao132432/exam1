@@ -1,18 +1,10 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import redis.clients.jedis.Jedis;
 
 @WebServlet("/del_prompt")
 
@@ -28,7 +20,7 @@ public class DelPrompt extends BaseServlet {
             throw new ServletException("please input id");
         }
 
-        jedis.del(id);
+        delKey(id);
         PromptService.delPrompt(conn, id);
 
         PrintWriter out = resp.getWriter();
